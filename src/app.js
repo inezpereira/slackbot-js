@@ -1,3 +1,17 @@
+/* CPC Social Slackbot
+
+Type "yarn start" on your Terminal to run this.
+
+Resources:
+- Helpful video tutorial: https://www.youtube.com/watch?v=AajBk59nOgw
+- How to create a classic App: https://api.slack.com/apps?new_classic_app=1
+
+Inês Pereira, July 2021
+
+Made with ❤️ for the CPC Zurich 2021
+*/
+
+
 import { RTMClient }  from '@slack/rtm-api'
 import { SLACK_OAUTH_TOKEN, BOT_SPAM_CHANNEL, BOT_MONITORING_CHANNEL } from './constants'
 import  { WebClient } from '@slack/web-api';
@@ -7,19 +21,36 @@ const rtm = new RTMClient(SLACK_OAUTH_TOKEN);
 const web = new WebClient(SLACK_OAUTH_TOKEN);
 
 const TEAMS = {
-    'U021TSUUXKL': '1',
-    'U029VAS34MQ': '2',
-    'U0226FT3T33': '3',
-    'U0226FSRMA5': '4'
+    'U021TSUUXKL': '1', // Inês
+    'U029VAS34MQ': '2', // Rike
+    'U0226FT3T33': '3', // Katharina
+    'U0226FSRMA5': '4'  // Nicole
 }
 
+// TODO: complete this list as needed
+const CHANNELS_TO_IGNORE = [
+    'C022HMKJ4N4', // #chairs
+    'C029ALGBAFJ', // #cpc-challenge
+    'C021QQKBPQD', // #general
+    'C0250R9TJJZ', // #job-postings
+    'C0254488JTD', // #q_and_a
+    'C022HM1V53J', // #random
+    'C024X4K5YCW', // #resources
+    'C021M4K3F54', // #social
+    'C021TTAJNV8', // #speakers-main-course
+    'C029NRLFLRL', // #speakers-tutorials
+    'C027ZS61NDC', // #test
+    'C021U43HAPM', // #tutorial-helpdesk
+    'C025A2XQ96Y' // #zoom
+]
 
 rtm.start()
   .catch(console.error);
 
 rtm.on('ready', async () => {
     console.log('bot started')
-    sendMessage(BOT_SPAM_CHANNEL, `Bot version ${packageJson.version} is online. Send me a direct message with the text: !start`)
+    sendMessage(BOT_SPAM_CHANNEL, `Social Bot version ${packageJson.version} is online. Send me a direct message with the text: !start
+You can send me a direct message by clicking on my name and then on 'Go to App'.`)
 })
 
 rtm.on('slack_event', async (eventType, event) => {
@@ -94,20 +125,26 @@ The passphrase is: Your body has run out of magnesium! 0Mg...`)
 }
 
 function notify_admin (userId, challengeNumber){
-    sendMessage(BOT_MONITORING_CHANNEL,` <@${userId}> from Team ${TEAMS[userId]} has solved challenge number ${challengeNumber}`)
+    if (userId in dic && dic[userId] === undefined){
+        sendMessage(BOT_MONITORING_CHANNEL,`<@${userId}> from Team ${TEAMS[userId]} has solved challenge number ${challengeNumber}`)
+    } else{
+        sendMessage(BOT_MONITORING_CHANNEL,`Warning: Unregistered user <@${userId}> has just solved challenge number ${challengeNumber}`)
+    }
 }
 
 function notify_admin_winner (userId){
-    sendMessage(BOT_MONITORING_CHANNEL,` <@${userId}> from Team ${TEAMS[userId]} has just solved the final challenge! Expect a message in the #cpc-challenge channel!`)
+    if (userId in dic && dic[userId] === undefined){
+        sendMessage(BOT_MONITORING_CHANNEL,`<@${userId}> from Team ${TEAMS[userId]} has just solved the final challenge! Expect a message in the #cpc-challenge channel!`)
+    } else {
+        sendMessage(BOT_MONITORING_CHANNEL,`Warning: Unregistered user <@${userId}> has just solved the final challenge!`)
+    }
 }
 
 async function sendMessage(channel, message) {
-    await web.chat.postMessage({
-        channel: channel,
-        text: message,
-    })
+    if (!CHANNELS_TO_IGNORE.includes(channel)){
+        await web.chat.postMessage({
+            channel: channel,
+            text: message,
+        })
+    }
 }
-
-// Type "yarn start" on your Terminal to run this.
-// Video tutorial: https://www.youtube.com/watch?v=AajBk59nOgw
-// How to create a classic App: https://api.slack.com/apps?new_classic_app=1
