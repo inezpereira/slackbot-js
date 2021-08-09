@@ -82,7 +82,7 @@ rtm.on('slack_event', async (eventType, event) => {
 function hello (channelId, userId) {
     sendMessage(channelId,`:tada: Heya <@${userId}>! Welcome to the CPC Zurich 2021 special social programme! :tada:
 In this challenge, you and your teammates will be given multiple puzzles to solve. This first team to solve all puzzles will win a special prize! :gift:
-Don't worry too much about instructions right now: these will be provided along the way, along with the necessary passwords to unlock the several challendges.
+Don't worry too much about instructions right now: these will be provided along the way, along with the necessary passwords to unlock the several challenges.
 Are you ready to start? If so, type: !ready`)
     // sendMessage(channelId, `:surfer: Check out this link: https://topia.io/cpc-game-free-0og8rqwlh <@${userId}>`)
 }
