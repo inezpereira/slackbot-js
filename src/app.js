@@ -21,7 +21,7 @@ const rtm = new RTMClient(SLACK_OAUTH_TOKEN);
 const web = new WebClient(SLACK_OAUTH_TOKEN);
 
 const TEAMS = {
-    'U021TSUUXKL': '1', // Inês
+    // 'U021TSUUXKL': '1', // Inês
     'U029VAS34MQ': '2', // Rike
     'U0226FT3T33': '3', // Katharina
     'U0226FSRMA5': '4'  // Nicole
@@ -80,7 +80,7 @@ rtm.on('slack_event', async (eventType, event) => {
 
 
 function hello (channelId, userId) {
-    sendMessage(channelId,`:tada: Heya <@${userId}>! Welcome to the CPC Zurich 2021 special social programme! :tada:
+    sendMessage(channelId,`:tada: Heya <@${userId}>! Welcome to the CPC Zurich 2021 special social program! :tada:
 In this challenge, you and your teammates will be given multiple puzzles to solve. This first team to solve all puzzles will win a special prize! :gift:
 Don't worry too much about instructions right now: these will be provided along the way, along with the necessary passwords to unlock the several challenges.
 Are you ready to start? If so, type: !ready`)
@@ -88,13 +88,14 @@ Are you ready to start? If so, type: !ready`)
 }
 
 function start (channelId) {
-    sendMessage(channelId, `Awesome. For your first challenge, find the secret puzzle in our surfers Topia room :surfer: : https://topia.io/cpc-game-free-0og8rqwlh
-Once you have found and solved the puzzle, type the solution into this chat.
+    sendMessage(channelId, `Awesome. For your first challenge, find the mysterious cookie in our surfers' Topia room :surfer: https://topia.io/cpc-game :palm_tree:
+Once you have found it and solved the puzzle, type the solution into this chat.
 Hint: think "wordplay"!`)
 }
 
 function bayes (channelId){
-    sendMessage(channelId, `YES!! :notes: Because you know I'm all about about that Bayes, 'bout that Bayes, no trouble :notes:... What do you mean, those are not the actual lyrics? Hmm, I prefer this version :nerd_face:
+    sendMessage(channelId, `YES!! :notes: Because you know I'm all about about that Bayes, 'bout that Bayes, no trouble :notes:... 
+What do you mean, those are not the actual lyrics? Hmm, I prefer this version :nerd_face:
 Anyway: congrats on making it through your first challenge! 
 Next, go back to the Topia room and find the 20-faced die. The password is: frontier-psychiatrist
 Solve the riddle and type the solution into this chat.`)
@@ -102,14 +103,15 @@ Solve the riddle and type the solution into this chat.`)
 
 function ode (channelId,userId){
     sendMessage(channelId,`<@${userId}> strikes again! Next, what is, according to Hamilton, equal to negative one? 
-(Hint: check out https://www.youtube.com/watch?v=SZXHoWwBcDc)
+For this challenge, check out https://www.youtube.com/watch?v=SZXHoWwBcDc
 Type the solution into this chat.`)
 }
 
 function ijk (channelId){
     sendMessage(channelId,`🎶 i-jay-kaaaaay 🎶 I hope you enjoyed this Science version of Lin-Manuel Miranda's "Alexander Hamilton". 
 For this next challenge, be sure to brainstorm with your team! Rebus puzzles are much more fun thay way :smiley:!
-Go back to the Topia room and find the canvas by the sea. The password is: quaternion-musical
+In case you don't know: a Rebus puzzle is a picture representation of a word or a phrase.
+All right, go back to the Topia room and find the canvas by the sea. The password is: quaternion-musical
 Once again, type the solution into this chat.`)
 }
 
@@ -125,18 +127,18 @@ The passphrase is: Your body has run out of magnesium! 0Mg...`)
 }
 
 function notify_admin (userId, challengeNumber){
-    if (userId in dic && dic[userId] === undefined){
-        sendMessage(BOT_MONITORING_CHANNEL,`<@${userId}> from Team ${TEAMS[userId]} has solved challenge number ${challengeNumber}`)
-    } else{
-        sendMessage(BOT_MONITORING_CHANNEL,`Warning: Unregistered user <@${userId}> has just solved challenge number ${challengeNumber}`)
+    if (userId in TEAMS) {
+        sendMessage(BOT_MONITORING_CHANNEL,`<@${userId}> from Team ${TEAMS[userId]} has solved challenge number ${challengeNumber}`);
+    } else {
+        sendMessage(BOT_MONITORING_CHANNEL,`Warning: Unregistered user <@${userId}> has just solved challenge number ${challengeNumber}`);
     }
 }
 
 function notify_admin_winner (userId){
-    if (userId in dic && dic[userId] === undefined){
+    if (userId in TEAMS) {
         sendMessage(BOT_MONITORING_CHANNEL,`<@${userId}> from Team ${TEAMS[userId]} has just solved the final challenge! Expect a message in the #cpc-challenge channel!`)
     } else {
-        sendMessage(BOT_MONITORING_CHANNEL,`Warning: Unregistered user <@${userId}> has just solved the final challenge!`)
+        sendMessage(BOT_MONITORING_CHANNEL,`:warning: Warning: Unregistered user <@${userId}> has just solved the final challenge! :warning:`)
     }
 }
 
