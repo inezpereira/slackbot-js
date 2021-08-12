@@ -109,8 +109,7 @@ Type the solution into this chat.`)
 
 function ijk (channelId){
     sendMessage(channelId,`🎶 i-jay-kaaaaay 🎶 I hope you enjoyed this Science version of Lin-Manuel Miranda's "Alexander Hamilton". 
-For this next challenge, be sure to brainstorm with your team! Rebus puzzles are much more fun thay way :smiley:!
-In case you don't know: a Rebus puzzle is a picture representation of a word or a phrase.
+For this next challenge, be sure to brainstorm with your team! Rebus puzzles are much more fun thay way :smiley:! In case you don't know: a Rebus puzzle is a picture representation of a word or a phrase.
 All right, go back to the Topia room and find the canvas by the sea. The password is: quaternion-musical
 Once again, type the solution into this chat.`)
 }
