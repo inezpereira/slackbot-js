@@ -9,6 +9,18 @@ Resources:
 Inês Pereira, July 2021
 
 Made with ❤️ for the CPC Zurich 2021
+
+Instructions for actual game:
+- Before the game starts: Edge, Chrome or Brave
+- Open up Zoom meeting and breakout rooms
+- Caution them not to use Topia as a 1ary source of communication (people can overhear you!)
+
+Input from session on 12.08:
+- Klaas: how do I know where the 1st challenge is? (should be solved with current text)
+
+TODO:
+- Implement help call. Type !help should mention me in the #cpc-challenge channel. Think about what you want to put there.
+- What's the prize? A Giant microbe plush? A book voucher? An e-book?
 */
 
 
@@ -49,8 +61,13 @@ rtm.start()
 
 rtm.on('ready', async () => {
     console.log('bot started')
-    sendMessage(BOT_SPAM_CHANNEL, `Social Bot version ${packageJson.version} is online. Send me a direct message with the text: !start
-You can send me a direct message by clicking on my name and then on 'Go to App'.`)
+    sendMessage(BOT_SPAM_CHANNEL, `Social Bot version ${packageJson.version} is online. Let the games begin!
+:warning: Remember: read all my instructions VERY CAREFULLY! :face_with_monocle:. 
+You will end up *winning time* if you do so.
+The first thing you need to do it to send me a direct message with the text: !start
+You can send me a direct message by clicking on my name and then on 'Go to App'.
+
+(Do not message Slackbot. Message me, the better, improved, more intelligent *Social Bot*!)`)
 })
 
 rtm.on('slack_event', async (eventType, event) => {
@@ -88,9 +105,9 @@ Are you ready to start? If so, type: !ready`)
 }
 
 function start (channelId) {
-    sendMessage(channelId, `Awesome. For your first challenge, find the mysterious cookie in our surfers' Topia room :surfer: https://topia.io/cpc-game :palm_tree:
+    sendMessage(channelId, `Awesome. For your first challenge, find the mysterious cookie :cookie: in our surfers' Topia room :surfer: https://topia.io/cpc-game :palm_tree:
 Once you have found it and solved the puzzle, type the solution into this chat.
-Hint: think "wordplay"!`)
+Hint: the real lyrics are not the actual answer, but the solution is similar! Think: "nerdy, CPC-related wordplay!"`)
 }
 
 function bayes (channelId){
