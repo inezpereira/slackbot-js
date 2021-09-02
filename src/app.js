@@ -19,7 +19,6 @@ Input from session on 12.08:
 - Klaas: how do I know where the 1st challenge is? (should be solved with current text)
 
 TODO:
-- Implement help call. Type !help should mention me in the #cpc-challenge channel. Think about what you want to put there.
 - What's the prize? A Giant microbe plush? A book voucher? An e-book?
 */
 
