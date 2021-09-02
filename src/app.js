@@ -42,7 +42,7 @@ const TEAMS = {
 // TODO: complete this list as needed
 const CHANNELS_TO_IGNORE = [
     'C022HMKJ4N4', // #chairs
-    'C029ALGBAFJ', // #cpc-challenge
+    'C02AZQ2KCRY', // #cpc-challenge
     'C021QQKBPQD', // #general
     'C0250R9TJJZ', // #job-postings
     'C0254488JTD', // #q_and_a
@@ -56,6 +56,8 @@ const CHANNELS_TO_IGNORE = [
     'C025A2XQ96Y' // #zoom
 ]
 
+const CPC_CHALLENGE_CHANNEL = ['C02AZQ2KCRY']
+
 rtm.start()
   .catch(console.error);
 
@@ -63,11 +65,12 @@ rtm.on('ready', async () => {
     console.log('bot started')
     sendMessage(BOT_SPAM_CHANNEL, `Social Bot version ${packageJson.version} is online. Let the games begin!
 :warning: Remember: read all my instructions VERY CAREFULLY! :face_with_monocle:. 
-You will end up *winning time* if you do so.
+You will end up *saving time* and *increasing your chances of winning* if you do so.
 The first thing you need to do it to send me a direct message with the text: !start
 You can send me a direct message by clicking on my name and then on 'Go to App'.
 
-(Do not message Slackbot. Message me, the better, improved, more intelligent *Social Bot*!)`)
+(Do not message Slackbot. Message me, the better, improved, more intelligent *Social Bot*!)
+If you run into issues or have questions, type the following into this channel: !help`)
 })
 
 rtm.on('slack_event', async (eventType, event) => {
@@ -76,6 +79,8 @@ rtm.on('slack_event', async (eventType, event) => {
             hello(event.channel, event.user)
         } else if (event.text === "!ready"){
             start(event.channel)
+        } else if (event.text === "!help"){
+            help(event.channel,event.user)
         } else if (event.text.toLowerCase() === "bayes"){
             bayes(event.channel, event.user)
             notify_admin(event.user,'1')
@@ -108,6 +113,11 @@ function start (channelId) {
     sendMessage(channelId, `Awesome. For your first challenge, find the mysterious cookie :cookie: in our surfers' Topia room :surfer: https://topia.io/cpc-game :palm_tree:
 Once you have found it and solved the puzzle, type the solution into this chat.
 Hint: the real lyrics are not the actual answer, but the solution is similar! Think: "nerdy, CPC-related wordplay!"`)
+}
+
+function help (channelId, userId) {
+    sendMessageToChallengeChannel(channelId, `<@${'U021TSUUXKL'}> Could you help?
+In the meantime, <@${userId}>, please describe your issue.`)
 }
 
 function bayes (channelId){
@@ -160,6 +170,15 @@ function notify_admin_winner (userId){
 
 async function sendMessage(channel, message) {
     if (!CHANNELS_TO_IGNORE.includes(channel)){
+        await web.chat.postMessage({
+            channel: channel,
+            text: message,
+        })
+    }
+}
+
+async function sendMessageToChallengeChannel(channel, message) {
+    if (CPC_CHALLENGE_CHANNEL.includes(channel)){
         await web.chat.postMessage({
             channel: channel,
             text: message,
