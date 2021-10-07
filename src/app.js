@@ -13,13 +13,16 @@ Made with ❤️ for the CPC Zurich 2021
 Instructions for actual game:
 - Before the game starts: Edge, Chrome or Brave
 - Open up Zoom meeting and breakout rooms
-- Caution them not to use Topia as a 1ary source of communication (people can overhear you!)
+- Challenge uses Slack and Topia
+    - As I have told you before - Topia: Edge, Chrome or Brave
+    - Slack: you will be interacting with the Social Bot
+    - I have added you to the #cpc-challenge channel, and I want you to focus on it in the beginning. 
+    This cpc-challenge is only used to start the game, call for help or for me to make general announcements for everyone.
+    - Otherwise, you will be directly messaging the Bot
+- READ EVERYTHING THE BOT WRITES SUPER CAREFULLY. This challenge requires you to be creative, but believe me, simply reading the instructions will already save you loads of time.
+- I will create breakout rooms for you to brainstorm together. I encourage you to communicate with your team there and not on Topia, since passersby can overhear you ;)
+- If the bot does not react to your answer, it is because it is not the correct answer, or because it's offline. But I'll make sure it stays online. ;)
 
-Input from session on 12.08:
-- Klaas: how do I know where the 1st challenge is? (should be solved with current text)
-
-TODO:
-- What's the prize? A Giant microbe plush? A book voucher? An e-book?
 */
 
 
@@ -33,29 +36,15 @@ const web = new WebClient(SLACK_OAUTH_TOKEN);
 
 const TEAMS = {
     // 'U021TSUUXKL': '1', // Inês
-    'U029VAS34MQ': '2', // Rike
-    'U0226FT3T33': '3', // Katharina
-    'U0226FSRMA5': '4'  // Nicole
+    // add more users
 }
 
-// TODO: complete this list as needed
 const CHANNELS_TO_IGNORE = [
-    'C022HMKJ4N4', // #chairs
-    'C02AZQ2KCRY', // #cpc-challenge
-    'C021QQKBPQD', // #general
-    'C0250R9TJJZ', // #job-postings
-    'C0254488JTD', // #q_and_a
-    'C022HM1V53J', // #random
-    'C024X4K5YCW', // #resources
-    'C021M4K3F54', // #social
-    'C021TTAJNV8', // #speakers-main-course
-    'C029NRLFLRL', // #speakers-tutorials
-    'C027ZS61NDC', // #test
-    'C021U43HAPM', // #tutorial-helpdesk
-    'C025A2XQ96Y' // #zoom
+    // 'C02AZQ2KCRY', // #cpc-challenge
 ]
 
-const CPC_CHALLENGE_CHANNEL = ['C02AZQ2KCRY']
+// const CPC_CHALLENGE_CHANNEL = ['C02AZQ2KCRY']
+const CPC_CHALLENGE_CHANNEL = ['C02F61BE3Q9']
 
 rtm.start()
   .catch(console.error);
@@ -109,13 +98,14 @@ Are you ready to start? If so, type: !ready`)
 }
 
 function start (channelId) {
-    sendMessage(channelId, `Awesome. For your first challenge, find the mysterious cookie :cookie: in our surfers' Topia room :surfer: https://topia.io/cpc-game :palm_tree:
-Once you have found it and solved the puzzle, type the solution into this chat.
+    sendMessage(channelId, `Awesome. For your first challenge, find the mysterious fortune cookie in our surfers' Topia room :surfer: https://topia.io/cpc-game :palm_tree:
+The password to enter the Topia room is: clickh3r34m04rcpcchallengeS!
+Once you have found the cookie and solved the puzzle, type the solution into this chat.
 Hint: the real lyrics are not the actual answer, but the solution is similar! Think: "nerdy, CPC-related wordplay!"`)
 }
 
 function help (channelId, userId) {
-    sendMessageToChallengeChannel(channelId, `<@${'U021TSUUXKL'}> Could you help?
+    sendMessageToChallengeChannel(channelId, `<@${'U021TSUUXKL'}> could you help?
 In the meantime, <@${userId}>, please describe your issue.`)
 }
 
